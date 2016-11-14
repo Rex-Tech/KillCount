@@ -1,4 +1,4 @@
-# -KillCount
+# KillCount
 show players' KillCount!
 
 #KillCount
@@ -8,6 +8,13 @@ show players' KillCount!
 - 记录玩家人头数
 - 人头数排行榜
 - 还有更多
+
+#指令
+|Command     |Description       |
+|------------|------------------|
+|/mykc       |查询你的人头数      |
+|/kc [player]|查询[player]的人头数|
+
 
 #开发者
 - @RexRed2268
