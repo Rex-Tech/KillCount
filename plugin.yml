@@ -1,0 +1,7 @@
+name: KillCount
+main: SuperXingKong\KillCount
+author: SuperXingKong
+version: 1.0.0
+api: [1.0.0]
+load: POSTWORLD
+description: "show players' KillCount!"
