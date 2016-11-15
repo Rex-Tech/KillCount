@@ -14,6 +14,7 @@ use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\utils\Config;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\math\Vector3;
 use pocketmine\level\Level;
 use pocketmine\level\particle\AngryVillagerParticle;
 
