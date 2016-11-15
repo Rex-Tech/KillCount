@@ -14,7 +14,9 @@ use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\utils\Config;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\level\particle\DustParticle;
+use pocketmine\level\Level;
+use pocketmine\level\particle\AngryVillagerParticle;
+
 
 class KillCount extends PluginBase implements Listener{
 
@@ -47,7 +49,12 @@ public function onKill(PlayerDeathEvent $event){
 			$kn=$killer->getName();
 			$sl=$this->KC->get($kn);
             if($killer instanceof Player){
-                $this->KC->set($kn,$sl + 1);
+$x=$killer->getX();
+$y=$killer->getY();
+$z=$killer->getZ();
+$level=$killer->getLevel();
+$level->addParticle(new AngryVillagerParticle(new Vector3($x,$y,$z)));
+        $this->KC->set($kn,$sl + 1);
 				$this->KC->save();
 				$killer->sendMessage(CL::GREEN."[KillCount]已累计一个人头\n你现在的人头数 : ".CL::RED."$sl + 1");
             }
