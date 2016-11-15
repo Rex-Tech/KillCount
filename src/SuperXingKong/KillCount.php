@@ -14,6 +14,7 @@ use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\utils\Config;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\level\particle\DustParticle;
 
 class KillCount extends PluginBase implements Listener{
 
