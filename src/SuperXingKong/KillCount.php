@@ -12,6 +12,8 @@ use pocketmine\entity\Entity;
 use pocketmine\utils\TextFormat as CL;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\utils\Config;
+use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
 
 class KillCount extends PluginBase implements Listener{
 
@@ -50,5 +52,34 @@ public function onKill(PlayerDeathEvent $event){
             }
         }
     }
+
+public function onCommand(CommandSender $sender,Command $cmd,$label,array $args)
+{
+		$sn=$sender->getName();
+
+		switch(strtolower($cmd->getName())){
+			case"mykc":
+	    if ($sender instanceof Player){
+$kc=$this->getKillCount($sn);
+$sender->sendMessage("你拥有的人头".$kc."个");
+}else{
+$sender->sendMessage("控制台差个卵人头数");
+}
+return true;
+			case"kc":
+if (isset($args[0])){
+				$br=$args[0];
+				if($this->KC->exists($br)){
+         $kc=$this->getKillCount($br);
+					$sender->sendMessage("[KillCount]他有".$kc."人头");
+return true;
+}else{
+					$sender->sendMessage("[KillCount]他没有加入过游戏");
+return true;
+}
+}
+}
+}
+
 }
 ?>
