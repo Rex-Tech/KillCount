@@ -6,8 +6,13 @@ show players' KillCount!
 
 #功能
 - 记录玩家人头数
-- 人头数排行榜
+- 人头数排行榜[未完成]
 - 还有更多
+
+#未来展望
+>更多支持本api的插件
+>粒子效果
+>人头数暴击
 
 #指令
 |Command     |Description       |
