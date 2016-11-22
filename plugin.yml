@@ -1,7 +1,7 @@
 name: KillCount
 main: SuperXingKong\KillCount
 author: SuperXingKong
-version: 1.0.0
+version: 1.1.0
 api: [1.0.0]
 load: POSTWORLD
 description: "show players' KillCount!"
@@ -12,5 +12,13 @@ commands:
   permission: true
  kc:
   description: "查询玩家的人头数"
-  usage: "/kc [玩家名]"
+  usage: "/kc <玩家名>"
   permission: true
+ url:
+  description: "展示插件核服务器信息"
+  usage: "/url"
+  permission: op
+ setkillmoney:
+  description: "set the number of money that players can get when they kill others"
+  usage: "/setkillmoney <money>"
+  permission: op
