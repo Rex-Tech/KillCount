@@ -14,7 +14,6 @@ use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\utils\Config;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\math\Vector3;
 use pocketmine\level\Level;
 use pocketmine\level\particle\AngryVillagerParticle;
 
@@ -32,6 +31,7 @@ $this->getLogger()->info(CL::BLUE."欢迎使用KillCount\n作者:SuperXingKong")
 $this->getServer()->getPluginManager()->registerEvents($this,$this);
 @mkdir($this->getDataFolder(),0777,true);
 $this->KC=new Config($this->getDataFolder()."KillCount.yml",Config::YAML,array());
+$this->saveDefaultConfig();
 }
 
 public function onJoin(PlayerJoinEvent $e){
@@ -57,10 +57,19 @@ $level=$killer->getLevel();
 $level->addParticle(new AngryVillagerParticle(new Vector3($x,$y,$z)));
         $this->KC->set($kn,$sl + 1);
 				$this->KC->save();
-				$killer->sendMessage(CL::GREEN."[KillCount]已累计一个人头\n你现在的人头数 : ".CL::RED."$sl + 1");
+        $money = $this->getKillMoney();
+				$killer->sendMessage(CL::GREEN."[KillCount]已累计一个人头\n你现在的人头数 : ".CL::RED."$sl + 1"."获得金钱".$money);
+       EconomyAPI::getInstance()->addMoney($kn,$money);
             }
         }
     }
+
+public function setKillMoney($money){
+$this->getConfig()->set("killmoney",$money);
+}
+public function getKillMoney(){
+return $this->getConfig()->get("killmoney");
+}
 
 public function onCommand(CommandSender $sender,Command $cmd,$label,array $args)
 {
@@ -87,6 +96,17 @@ return true;
 return true;
 }
 }
+
+      case"url":
+$sender->sendMessage("本插件路径:".__FILE__."\n操作系统:".PHP_OS."\nPHP版本:".PHP_VERSION);
+reture true;
+
+      case"setkillmoney":
+if (count($args) == 1){
+$this->setKillMoney($args[0]);
+return true;
+}
+
 }
 }
 
