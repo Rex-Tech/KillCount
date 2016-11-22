@@ -19,7 +19,7 @@ show players' KillCount!
 |------------|------------------|
 |/mykc       |查询你的人头数      |
 |/kc [player]|查询[player]的人头数|
-
+|/setkillmoney|set the number of money that players can get when they kill others|
 
 #开发者
 - @RexRed2268
