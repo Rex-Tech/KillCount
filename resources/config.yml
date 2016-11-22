@@ -1,1 +1,13 @@
+#KillCount配置文件
+#KillCount Config File
 
+#prefix:
+#5: 初入杀界
+#20: 小试牛刀
+#50: 大杀特杀
+#80: 横扫千军
+#100: 无人能敌
+#top: 杀神
+#开发中......
+
+killmoney: 50
