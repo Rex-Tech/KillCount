@@ -97,10 +97,6 @@ return true;
 }
 }
 
-      case"url":
-$sender->sendMessage("本插件路径:".__FILE__."\n操作系统:".PHP_OS."\nPHP版本:".PHP_VERSION);
-reture true;
-
       case"setkillmoney":
 if (count($args) == 1){
 $this->setKillMoney($args[0]);
