@@ -9,11 +9,9 @@ commands:
  mykc:
   description: "查询你的人头数"
   usage: "/mykc"
-  permission: true
  kc:
   description: "查询玩家的人头数"
   usage: "/kc <玩家名>"
-  permission: true
  url:
   description: "展示插件核服务器信息"
   usage: "/url"
