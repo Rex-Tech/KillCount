@@ -15,13 +15,17 @@ use pocketmine\utils\Config;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\level\Level;
-use pocketmine\level\particle\AngryVillagerParticle;
+use pocketmine\math\Vector3;
+
+use onebone\economyapi\EconomyAPI;
 
 
 class KillCount extends PluginBase implements Listener{
 
+public $prefix = [];
+
 public function getKillCount($pn){
-$killcount = $this->KC->get("$pn");
+$killcount = $this->KC->get($pn);
 return $killcount;
 //TODO:More plugins
 }
@@ -30,13 +34,23 @@ public function onEnable(){
 $this->getLogger()->info(CL::BLUE."欢迎使用KillCount\n作者:SuperXingKong");
 $this->getServer()->getPluginManager()->registerEvents($this,$this);
 @mkdir($this->getDataFolder(),0777,true);
-$this->KC=new Config($this->getDataFolder()."KillCount.yml",Config::YAML,array());
+$this->KC = new Config($this->getDataFolder()."KillCount.yml",Config::YAML,array());
 $this->saveDefaultConfig();
+$this->reloadConfig();
+$this->Config = new Config($this->getDataFolder()."config.yml");
+$this->PF =new Config($this->getDataFolder()."prefix.yml",Config::YAML,array(
+      1 => "战神",
+      2 => "战帝",
+      3 => "战皇",
+      4 => "战王",
+      5 => "战将",
+      "others" => "战兵"
+));
 }
 
 public function onJoin(PlayerJoinEvent $e){
 $p=$e->getPlayer();
-$pn=$p->getName();
+$pn = strtolower($p->getName());
 if (!$this->KC->exists($pn)){
 			$this->KC->set($pn,0);
 			$this->KC->save();
@@ -54,7 +68,6 @@ $x=$killer->getX();
 $y=$killer->getY();
 $z=$killer->getZ();
 $level=$killer->getLevel();
-$level->addParticle(new AngryVillagerParticle(new Vector3($x,$y,$z)));
         $this->KC->set($kn,$sl + 1);
 				$this->KC->save();
         $money = $this->getKillMoney();
@@ -65,7 +78,8 @@ $level->addParticle(new AngryVillagerParticle(new Vector3($x,$y,$z)));
     }
 
 public function setKillMoney($money){
-$this->getConfig()->set("killmoney",$money);
+$this->Config->set("killmoney",$money);
+$this->Config->save();
 }
 public function getKillMoney(){
 return $this->getConfig()->get("killmoney");
@@ -73,7 +87,7 @@ return $this->getConfig()->get("killmoney");
 
 public function onCommand(CommandSender $sender,Command $cmd,$label,array $args)
 {
-		$sn=$sender->getName();
+		$sn = strtolower($sender->getName());
 
 		switch(strtolower($cmd->getName())){
 			case"mykc":
@@ -84,6 +98,7 @@ $sender->sendMessage("你拥有的人头".$kc."个");
 $sender->sendMessage("控制台差个卵人头数");
 }
 return true;
+
 			case"kc":
 if (isset($args[0])){
 				$br=$args[0];
@@ -103,6 +118,20 @@ $this->setKillMoney($args[0]);
 return true;
 }
 
+      case"killlist":
+      $kl = $this->KC->getAll();
+      arsort($kl);
+      $msg = CL::YELLOW."杀人排行榜\n";
+      $num = 0;
+      foreach ($kl as $pn => $kc){
+      $num++;
+      if ($num > 5){
+      break;
+      }
+      $msg .= CL::GREEN."[{$num}]>>".CL::RED.$pn.CL::BLUE."人头数:{$kc}\n";
+}     
+      $sender->sendMessage($msg);
+      return true;
 }
 }
 
