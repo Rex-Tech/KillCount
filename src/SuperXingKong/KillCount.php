@@ -1,5 +1,16 @@
 <?php
 
+/*
+* _  ___ _ _  _____                  _   
+*| |/ (_) | |/ ____|                | |  
+*| ' / _| | | |     ___  _   _ _ __ | |_ 
+*|  < | | | | |    / _ \| | | | '_ \| __|
+*| . \| | | | |___| (_) | |_| | | | | |_ 
+*|_|\_\_|_|_|\_____\___/ \__,_|_| |_|\__|
+*@author SuperXingKong
+*Copyright (c)2017 SuperXingKong
+*/
+
 namespace SuperXingKong;
 
 use pocketmine\plugin\PluginBase;
@@ -31,6 +42,15 @@ return $killcount;
 }
 
 public function onEnable(){
+	$string = '
+ _  ___ _ _  _____                  _   
+| |/ (_) | |/ ____|                | |  
+| ' / _| | | |     ___  _   _ _ __ | |_ 
+|  < | | | | |    / _ \| | | | '_ \| __|
+| . \| | | | |___| (_) | |_| | | | | |_ 
+|_|\_\_|_|_|\_____\___/ \__,_|_| |_|\__|
+';
+	$this->getLogger()->info(CL::GREEN.$string);
 $this->getLogger()->info(CL::BLUE."欢迎使用KillCount\n作者:SuperXingKong");
 $this->getServer()->getPluginManager()->registerEvents($this,$this);
 @mkdir($this->getDataFolder(),0777,true);
